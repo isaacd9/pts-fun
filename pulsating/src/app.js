@@ -5,32 +5,31 @@
 import {Color, CanvasSpace, Create, Num} from 'pts';
 
 // Initiate Space and Form
-var space = new CanvasSpace('#pts').setup({bgcolor: '#123'});
+var space = new CanvasSpace('#pts').setup({bgcolor: '#000'});
 var form = space.getForm();
 
 let landmarks;
 
 space.add({
   start: (bound, space) => {
-    landmarks = Create.radialPts(space.center, space.height / 2.3, 3);
+    landmarks = Create.radialPts(space.center, space.height / 2.4, 3);
   },
-  animate: (time, ftime) => {
-    //landmarks.map(landmark => form.fill('#FF').point(landmark, 10));
+  animate: (time) => {
+    //landmarks.map(landmark => form.fill('#fff').point(landmark, 1));
 
-    let radius = (Num.cycle((time % 1000) / 1000) * 30) + 100;
-    let color = Num.cycle((time % (255 * 10)) / (255 * 10)) * 128;
+    let radius = (Num.cycle((time % 1000) / 1000) * 30) + 300;
+    let color = Num.cycle((time % (255 * 100)) / (255 * 100)) * 128;
 
     const [redCenter, greenCenter, blueCenter] = landmarks;
 
     const redScale = Num.normalizeValue(
-      redCenter.$subtract(space.pointer).magnitude(), 0, space.height * .80,
+      redCenter.$subtract(space.pointer).magnitude(), 0, space.height * .90,
     );
-    console.log(redScale);
     const greenScale = Num.normalizeValue(
-      greenCenter.$subtract(space.pointer).magnitude(), 0, space.height * .80,
+      greenCenter.$subtract(space.pointer).magnitude(), 0, space.height * .90,
     );
     const blueScale = Num.normalizeValue(
-      blueCenter.$subtract(space.pointer).magnitude(), 0, space.height * .80,
+      blueCenter.$subtract(space.pointer).magnitude(), 0, space.height * .90,
     );
 
     const c = new Color(color * redScale, color * greenScale, color * blueScale);
